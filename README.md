@@ -14,8 +14,3 @@ Setiap kali tombol **"Ganti Pengguna"** ditekan, data baru akan diambil dan dita
 - Dibuat menggunakan HTML, CSS, dan JavaScript murni tanpa framework.
 
 ---
-
-## 🚀 Cara Menjalankan
-1. Clone repositori:
-   ```bash
-   git clone https://github.com/username/frontend-hubjavan.git
