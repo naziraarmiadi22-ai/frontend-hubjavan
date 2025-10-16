@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #d686cb, #aecdd8);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #F2F5F7;
+        }
+        
+        .card {
+            background: rgb(140, 19, 122);
+            border-radius: 20px;
+            padding: 30px;
+            width: 340px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: 0.3s ease;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .card:hover {
+            transform: scale(1.03);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        img {
+            border-radius: 50%;
+            width: 170px;
+            height: 170px;
+            object-fit: cover;
+            border: 3px solid #00C9FF;
+            margin-bottom: 15px;
+            transition: 0.4s;
+        }
+        
+        img:hover {
+            transform: scale(1.05);
+            border-color: #e1d444;
+        }
+        
+        .info {
+            margin-bottom: 15px;
+        }
+        
+        .info h2 {
+            margin: 10px 0 5px;
+            color: #fff;
+            font-size: 23px;
+        }
+        
+        .info p {
+            margin: 4px 0;
+            color: #ccc;
+            font-size: 16px;
+        }
+        
+        button {
+            background: linear-gradient(90deg, #00C9FF, #92FE9D);
+            border: none;
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            opacity: 0.85;
+            transform: scale(1.05);
+        }
+        
+        footer {
+            position: absolute;
+            bottom: 20px;
+            color: #fcfcfc;
+            font-size: 17px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Profil Pengguna</h1>
+
+    <div class="card" id="profile">
+        <img id="avatar" src="" alt="Foto Pengguna" />
+        <div class="info">
+            <h2 id="name">Memuat...</h2>
+            <p id="email"></p>
+            <p id="location"></p>
+        </div>
+        <button onclick="getUser()">🔄 Ganti</button>
+    </div>
+
+    <footer>© 2025 | Tes Teknis MagangHub Kemnaker PT.Javan Cipta Solusi (Programer Front End) - Nazira</footer>
+
+    <script>
+        async function getUser() {
+            try {
+                const res = await fetch('https://randomuser.me/api/');
+                const data = await res.json();
+                const user = data.results[0];
+
+                document.getElementById('avatar').src = user.picture.large;
+                document.getElementById('name').textContent = `${user.name.first} ${user.name.last}`;
+                document.getElementById('email').textContent = user.email;
+                document.getElementById('location').textContent = `${user.location.city}, ${user.location.country}`;
+            } catch (error) {
+                document.getElementById('name').textContent = 'Gagal memuat data.';
+                console.error(error);
+            }
+        }
+
+        getUser();
+    </script>
+</body>
+
+</html>
