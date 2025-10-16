@@ -4,61 +4,104 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Profile</title>
-
+    <title>User Profile Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #d686cb, #aecdd8);
-            color: #ffffff;
+            color: #fff;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
+            justify-content: flex-start;
+            overflow-x: hidden;
+        }
+        /* HEADER */
+        
+        header {
+            width: 100%;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
-        h1 {
-            margin-bottom: 20px;
+        header h1 {
+            font-size: 22px;
             font-weight: 600;
-            letter-spacing: 1px;
-            color: #F2F5F7;
+            color: #fff;
         }
+        
+        header button {
+            background: linear-gradient(90deg, #00C9FF, #92FE9D);
+            border: none;
+            color: #000;
+            padding: 8px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        header button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        /* CONTAINER */
+        
+        .container {
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        /* CARD UTAMA */
         
         .card {
-            background: rgb(140, 19, 122);
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 30px;
             width: 340px;
             text-align: center;
-            backdrop-filter: blur(12px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            transition: 0.3s ease;
+            transition: transform 0.3s ease;
             animation: fadeIn 0.8s ease;
+            backdrop-filter: blur(12px);
         }
         
         .card:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
         
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(20px)
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
         
         img {
             border-radius: 50%;
-            width: 170px;
-            height: 170px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
             border: 3px solid #00C9FF;
             margin-bottom: 15px;
@@ -70,63 +113,122 @@
             border-color: #e1d444;
         }
         
-        .info {
-            margin-bottom: 15px;
-        }
-        
         .info h2 {
             margin: 10px 0 5px;
+            font-size: 22px;
             color: #fff;
-            font-size: 23px;
         }
         
         .info p {
             margin: 4px 0;
-            color: #ccc;
-            font-size: 16px;
+            color: #eee;
+            font-size: 15px;
+        }
+        /* CARD DETAIL TAMBAHAN */
+        
+        .details {
+            display: flex;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            width: 340px;
+            justify-content: space-between;
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            font-size: 15px;
         }
         
-        button {
-            background: linear-gradient(90deg, #00C9FF, #92FE9D);
-            border: none;
-            color: #000;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
+        .detail-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            transition: transform .18s ease, background .18s;
+        }
+        
+        .detail-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.10);
+        }
+        
+        .detail-label {
+            display: block;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 6px;
+            letter-spacing: 0.4px;
+        }
+        
+        .detail-value {
+            display: block;
+            font-size: 17px;
+            color: #030303;
+            background: linear-gradient(90deg, #fff, #f2f2f2);
+            padding: 6px 10px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-        
-        button:hover {
-            opacity: 0.85;
-            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) inset;
         }
         
         footer {
-            position: absolute;
-            bottom: 20px;
-            color: #fcfcfc;
-            font-size: 17px;
+            margin-top: 30px;
+            color: #fff;
+            font-size: 14px;
             text-align: center;
+            padding-bottom: 20px;
+        }
+        /* responsive */
+        
+        @media (max-width: 420px) {
+            .card,
+            .details {
+                width: calc(100% - 80px);
+            }
+            .details {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>Profil Pengguna</h1>
-
-    <div class="card" id="profile">
-        <img id="avatar" src="" alt="Foto Pengguna" />
-        <div class="info">
-            <h2 id="name">Memuat...</h2>
-            <p id="email"></p>
-            <p id="location"></p>
-        </div>
+    <header>
+        <h1>Profil Pengguna</h1>
         <button onclick="getUser()">🔄 Ganti</button>
+    </header>
+
+    <div class="container">
+        <div class="card" id="profile">
+            <img id="avatar" src="" alt="Foto Pengguna" />
+            <div class="info">
+                <h2 id="name">Memuat...</h2>
+                <p id="email"></p>
+                <p id="location"></p>
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="detail-item">
+                <span class="detail-label">Gender</span>
+                <span class="detail-value" id="gender">-</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Umur</span>
+                <span class="detail-value" id="age">-</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Telepon</span>
+                <span class="detail-value" id="phone">-</span>
+            </div>
+        </div>
     </div>
 
-    <footer>© 2025 | Tes Teknis MagangHub Kemnaker PT.Javan Cipta Solusi (Programer Front End) - Nazira</footer>
+    <footer>
+        © 2025 | Tes Teknis MagangHub Kemnaker PT. Javan Cipta Solusi <br> Front End Programmer - Nazira
+    </footer>
 
     <script>
         async function getUser() {
@@ -139,6 +241,9 @@
                 document.getElementById('name').textContent = `${user.name.first} ${user.name.last}`;
                 document.getElementById('email').textContent = user.email;
                 document.getElementById('location').textContent = `${user.location.city}, ${user.location.country}`;
+                document.getElementById('gender').textContent = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
+                document.getElementById('age').textContent = user.dob.age;
+                document.getElementById('phone').textContent = user.phone;
             } catch (error) {
                 document.getElementById('name').textContent = 'Gagal memuat data.';
                 console.error(error);
